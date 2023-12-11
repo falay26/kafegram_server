@@ -14,7 +14,7 @@ const handleLogin = async (req, res) => {
 
   const foundUser = await User.findOne({ username: username }).exec();
   if (!foundUser) return res.sendStatus(401);
-  const match = await bcrypt.compare(pwd, foundUser.password);
+  const match = await bcrypt.compare(password, foundUser.password);
   if (match) {
     const roles = Object.values(foundUser.roles).filter(Boolean);
     const accessToken = jwt.sign(
