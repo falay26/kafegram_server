@@ -13,7 +13,11 @@ const handleLogin = async (req, res) => {
     });
 
   const foundUser = await User.findOne({ username: username }).exec();
-  if (!foundUser) return res.sendStatus(401);
+  if (!foundUser)
+    return res.status(401).json({
+      status: 401,
+      message: "Kullanıcı bulunamadı.",
+    });
   const match = await bcrypt.compare(password, foundUser.password);
   if (match) {
     const roles = Object.values(foundUser.roles).filter(Boolean);
@@ -72,7 +76,10 @@ const handleLogin = async (req, res) => {
       },
     });
   } else {
-    res.sendStatus(401);
+    res.status(401).json({
+      status: 401,
+      message: "Şifre hatalı!",
+    });
   }
 };
 
