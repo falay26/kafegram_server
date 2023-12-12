@@ -12,7 +12,7 @@ const userSchema = new Schema(
         type: Number,
         default: 1111,
       },
-      Editor: Number,
+      Kafe: Number,
       Admin: Number,
     },
     password: {
